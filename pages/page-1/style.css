@@ -1,3 +1,8 @@
 body {
     background-color: rgba(0, 0, 0, 0.874);
 }
+
+.header__link {
+    color: rgb(255, 221, 0);
+    text-decoration: none;
+}
