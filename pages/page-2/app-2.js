@@ -21,6 +21,15 @@ const eventEmitter = new EventEmitter();
 eventEmitter.subscribe('on', () => {
     console.log('Лампочка 1 включилась!');
 });
+const unsub = eventEmitter.subscribe('on', () => {
+    console.log('Лампочка 2 включилась!');
+    console.log(qwerty(5, 5));
+});
+eventEmitter.subscribe('on', () => {
+    console.log('Чайник включился!');
+});
+eventEmitter.dispatch('on');
+// unsub();
 // eventEmitter.dispatch('on');
 
 
