@@ -5,50 +5,30 @@
  * https://www.youtube.com/watch?v=8uouGwuNTcM
  */
 // Page-1
-export class EventEmitter {
-    #listeners = {}
-
-    #getCallbacksFor(eventName) {
-        return this.#listeners[eventName] ?? [];
-    }
-
-    #setCallbacksFor(eventName, listeners) {
-        if (listeners.length === 0) {
-            delete this.#listeners[eventName];
-        } else {
-            this.#listeners[eventName] = listeners;
-        }
-    }
-
-    subscribe(eventName, callback) {
-        const subs = this.#getCallbacksFor(eventName);
-
-        subs.push(callback);
-
-        this.#setCallbacksFor(eventName, subs);
-
-        return () => this.unsubscribe(eventName, callback);
-    }
-
-    unsubscribe(eventName, callback) {
-        const subs = this.#getCallbacksFor(eventName)
-            .filter((item) => item !== callback);
-
-        this.#setCallbacksFor(eventName, subs);
-    }
-
-    dispatch(eventName, data) {
-        this.#getCallbacksFor(eventName)
-            .forEach((callback) => callback(data));
-    }
-};
+// module1.js
+// index.js
+import '../page-1/app-1.js';
+import '../page-2/app-2.js';
 
 
-export const qwerty = function qwerty(num, num2) {
-    let result = num + num2;
-    return result;
-};
-// console.log(qwerty(2, 2));
+import { EventEmitter } from '../eventEmitter.js';
+
+const eventEmitter = new EventEmitter();
+let numertest = 42;
+function receiveData(data) {
+    console.log(`Модуль 1 получил данные: ${data}`);
+
+    // Отправляем данные в модуль 2
+    eventEmitter.dispatch('dataReceived', data);
+}
+
+// Подписываемся на событие от модуля 2
+eventEmitter.subscribe('dataProcessed', (processedData) => {
+    console.log(`Модуль 1 получил обработанные данные: ${processedData}`);
+});
+
+// Пример вызова
+// receiveData(42); // Например, мы получаем данные 42
 
 
 
