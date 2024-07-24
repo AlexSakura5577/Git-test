@@ -1,44 +1,36 @@
 // Паттерны (Event Emitter)
 // Page-2
-// module2.js
-import '../page-1/app-1.js';
-import '../page-2/app-2.js';
 
-import { EventEmitter } from '../eventEmitter.js';
+import { EventEmitter } from "../page-1/app-1.js";
+import { qwerty } from "../page-1/app-1.js";
+
+function multiplication(num1, num2, num3) {
+    let result_1 = num1 * num2;
+    let result_2 = result_1 + num3;
+    return {
+        result_1: result_1,
+        result_2: result_2
+    }
+};
+
+// console.log(multiplication(1, 2, 3).result_2);
+// console.log(qwerty(5, 5));
 
 const eventEmitter = new EventEmitter();
 
-// Подписываемся на событие из модуля 1
-eventEmitter.subscribe('dataReceived', (data) => {
-    console.log(`Модуль 2 получил данные: ${data}`);
-
-    // Обрабатываем данные
-    const processedData = data * 2; // например, просто удваиваем значение
-
-    // Отправляем обработанные данные обратно в модуль 1
-    eventEmitter.dispatch('dataProcessed', processedData);
+eventEmitter.subscribe('on', () => {
+    console.log('Лампочка 1 включилась!');
 });
-
-
-// Пример использования
-// let data = receiveData() в module1.js вызовет процесс в module2.js.
-
-
-// const eventEmitter = new EventEmitter();
-
-// eventEmitter.subscribe('on', () => {
-//     console.log('Лампочка 1 включилась!');
-// });
-// const unsub = eventEmitter.subscribe('on', () => {
-//     console.log('Лампочка 2 включилась!');
-//     console.log(qwerty(5, 5));
-// });
-// eventEmitter.subscribe('on', () => {
-//     console.log('Чайник включился!');
-// });
+const unsub = eventEmitter.subscribe('on', () => {
+    console.log('Лампочка 2 включилась!');
+    console.log(qwerty(5, 5));
+});
+eventEmitter.subscribe('on', () => {
+    console.log('Чайник включился!');
+});
+eventEmitter.dispatch('on');
+// unsub();
 // eventEmitter.dispatch('on');
-// // unsub();
-// // eventEmitter.dispatch('on');
 
 
 
