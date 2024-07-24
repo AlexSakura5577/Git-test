@@ -3,6 +3,7 @@ import { eventEmitter } from '../eventEmitter.js';
 
 console.log("Module 2 loaded");
 
+// подписка на событие (получение данных)
 eventEmitter.subscribe('dataReceived', (data) => {
     console.log(`Модуль 2 получил данные: ${data}`);
     
