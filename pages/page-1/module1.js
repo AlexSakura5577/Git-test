@@ -6,17 +6,10 @@ function receiveData(data) {
     eventEmitter.dispatch('dataReceived', data);
 }
 
-// Новое событие: вход пользователя
-function userLogin(username) {
-    console.log(`${username} вошел в систему.`);
-    eventEmitter.dispatch('userLogin', username);
-}
-
-// Новое событие: выход пользователя
-function userLogout(username) {
-    console.log(`${username} вышел из системы.`);
-    eventEmitter.dispatch('userLogout', username);
-}
+// Используем once для однократной подписки на вход пользователя
+eventEmitter.once('userLogin', (username) => {
+    console.log(`Первый вход пользователя: ${username}`);
+});
 
 // Подписка на обработанные данные
 eventEmitter.subscribe('dataProcessed', (processedData) => {
@@ -25,5 +18,5 @@ eventEmitter.subscribe('dataProcessed', (processedData) => {
 });
 
 // Тестирование нового функционала
-userLogin('Александр');
-userLogout('Александр');
+eventEmitter.dispatch('userLogin', 'Александр'); // Это обработается
+eventEmitter.dispatch('userLogin', 'Ирина'); // Это уже не обработается

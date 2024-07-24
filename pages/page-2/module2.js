@@ -12,13 +12,3 @@ eventEmitter.subscribe('dataReceived', (data) => {
     console.log(`Модуль 2 отправляет обратно обработанные данные: ${processedData}`);
     eventEmitter.dispatch('dataProcessed', processedData);
 });
-
-// Подписка на вход пользователя
-eventEmitter.subscribe('userLogin', (username) => {
-    console.log(`Добро пожаловать, ${username}!`);
-});
-
-// Подписка на выход пользователя
-eventEmitter.subscribe('userLogout', (username) => {
-    console.log(`До свидания, ${username}! Надеемся увидеть вас снова.`);
-});
