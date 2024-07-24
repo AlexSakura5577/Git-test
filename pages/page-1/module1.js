@@ -1,25 +1,29 @@
 // module1.js
 import { eventEmitter } from '../eventEmitter.js';
 
-console.log("Module 1 loaded");
-
 function receiveData(data) {
     console.log(`Модуль 1 получил данные: ${data}`);
-    
-    // Передаем данные в модуль 2 через emitter
     eventEmitter.dispatch('dataReceived', data);
 }
 
-// Используйте once для однократной подписки на данные
-eventEmitter.once('dataProcessed', (processedData) => {
-    console.log(`Это единственное получение обработанных данных: ${processedData}`);
-});
+// Новое событие: вход пользователя
+function userLogin(username) {
+    console.log(`${username} вошел в систему.`);
+    eventEmitter.dispatch('userLogin', username);
+}
 
-// Подписываемся на обработанные данные из модуля 2
+// Новое событие: выход пользователя
+function userLogout(username) {
+    console.log(`${username} вышел из системы.`);
+    eventEmitter.dispatch('userLogout', username);
+}
+
+// Подписка на обработанные данные
 eventEmitter.subscribe('dataProcessed', (processedData) => {
     console.log(`Подписка на обработанные данные сработала!`);
     console.log(`Модуль 1 получил обработанные данные: ${processedData}`);
 });
 
-// Пример вызова
-receiveData(42); // Запуск и передача данных
+// Тестирование нового функционала
+userLogin('Александр');
+userLogout('Александр');
