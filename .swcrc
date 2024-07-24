@@ -1,0 +1,13 @@
+{
+    "jsc": {
+        "parser": {
+            "syntax": "ecmascript",
+            "decorators": true,
+            "dynamicImport": true
+        },
+        "target": "es5",
+        "transform": {
+            "decoratorMetadata": true
+        }
+    }
+}
